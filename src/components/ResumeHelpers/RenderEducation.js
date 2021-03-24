@@ -1,6 +1,7 @@
 import React from 'react'
 import { Input, Label, FormGroup, Button, Col, Row } from 'reactstrap'
 import { Field } from "redux-form";
+import CustomDate from './DateComponent'
 
 const RenderEducation = ({ fields, meta: { error } }) => (
     <>
@@ -38,23 +39,11 @@ const RenderEducation = ({ fields, meta: { error } }) => (
                     </Col>
                     <Col>
                         <Label>Start</Label>
-                        <Input
-                            tag={Field}
-                            component="input"
-                            type="input"
-                            name={`${education}.start`}
-                            placeholder="start Date"
-                        />
+                        <Field name={`${education}.start`} component={CustomDate} />
                     </Col>
                     <Col>
                         <Label>End</Label>
-                        <Input
-                            tag={Field}
-                            component="input"
-                            type="input"
-                            name={`${education}.end`}
-                            placeholder="End Date"
-                        />
+                        <Field name={`${education}.end`} component={CustomDate} />
                     </Col>
                     <Col style={{ display: "grid", justifyContent: "start", alignItems: "center", marginTop: '1rem' }}>
                         <Button

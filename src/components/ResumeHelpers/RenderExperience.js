@@ -1,6 +1,7 @@
 import React from 'react'
 import { Input, Label, FormGroup, Button, Col, Row } from 'reactstrap'
-import {  Field } from "redux-form";
+import { Field } from "redux-form";
+import CustomDate from './DateComponent'
 
 const RenderExperience = ({ fields, meta: { error } }) => (
     <>
@@ -38,25 +39,13 @@ const RenderExperience = ({ fields, meta: { error } }) => (
                     </Col>
                     <Col>
                         <Label>Start</Label>
-                        <Input
-                            tag={Field}
-                            component="input"
-                            type="input"
-                            name={`${experience}.start`}
-                            placeholder="start Date"
-                        />
+                        <Field name={`${experience}.start`} component={CustomDate}/>
                     </Col>
                     <Col>
                         <Label>End</Label>
-                        <Input
-                            tag={Field}
-                            component="input"
-                            type="input"
-                            name={`${experience}.end`}
-                            placeholder="End Date"
-                        />
+                        <Field name={`${experience}.end`} component={CustomDate}/>
                     </Col>
-                    <Col style={{ display: "grid", justifyContent: "start", alignItems: "center",  marginTop: '1rem' }}>
+                    <Col style={{ display: "grid", justifyContent: "start", alignItems: "center", marginTop: '1rem' }}>
                         <Button
                             type="button"
                             title="Remove Experience"
