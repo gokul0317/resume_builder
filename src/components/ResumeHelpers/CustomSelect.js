@@ -3,7 +3,14 @@ import Autocomplete from 'react-autocomplete';
 import skills from './skills.json'
 const CustomAutocomplete = field => {
     const [currentSkills, setCurrentSkills] = useState(skills)
-
+    
+    const updateSkillOnSearch = (value) => {
+        value = value || ''
+        const filtered = skills.filter((elm) => {
+            return elm.label.toLowerCase().includes(value.toLowerCase())
+        })
+        setCurrentSkills(filtered)
+    }
     return (
         <Autocomplete
             getItemValue={(item) => item.label}
@@ -15,10 +22,7 @@ const CustomAutocomplete = field => {
             }
             onChange={value => {
                 field.input.onChange(value)
-                setCurrentSkills(() => {
-                    const filtered = skills.filter((elm) => elm.label.includes(value.target?.value))
-                    return filtered
-                })
+                updateSkillOnSearch(value.target?.value)
             }}
             value={field.input.value}
             onSelect={value => field.input.onChange(value)}

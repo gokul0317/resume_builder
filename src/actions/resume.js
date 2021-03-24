@@ -30,7 +30,7 @@ export const addNewResume = (resume) => dispatch => {
         type: ADD_RESUMES,
         payload: addedResume
     })
-    return Promise.resolve()
+    return Promise.resolve(addedResume)
 }
 
 export const updatecurrentResume = (resume) => dispatch => {
@@ -39,7 +39,7 @@ export const updatecurrentResume = (resume) => dispatch => {
         type: ADD_RESUMES,
         payload: updatedResume
     })
-    return Promise.resolve()
+    return Promise.resolve(updatedResume)
 }
 
 

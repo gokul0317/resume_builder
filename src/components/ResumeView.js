@@ -5,23 +5,35 @@ import { Container, Button, Col, Row } from 'reactstrap'
 import { getSingleResume, loadingResume } from '../actions/resume'
 import ReactToPdf from 'react-to-pdf'
 import navBarWrapper from './NavBarDecorator'
-
+import { useState } from 'react'
+import { validResume } from '../helpers'
 
 let ResumeView = (props) => {
     const { id } = useParams()
     const ref = createRef();
 
     const { getSingleResume, resume, loadingResume, loading } = props
-    const fileName = !resume.firstName ? 'resume.pdf' : `${resume.firstName}${`${resume.lastName ?? ''}`}.pdf`
+    const fileName = !resume || !resume.firstName ? 'resume.pdf' : `${resume.firstName}${`${resume.lastName ?? ''}`}.pdf`
+    const [resumeValid, setValidResume] = useState(true)
     useEffect(() => {
         if (id) {
             loadingResume()
             getSingleResume(id)
         }
     }, [id, getSingleResume, loadingResume])
+
+    useEffect(() => {
+        setValidResume(validResume(resume))
+    }, [resume])
+
     if (loading) {
         return <p>Loading..</p>
     }
+
+    if (!resumeValid) {
+        return <h4 style={{ textAlign: "center", marginTop: "1rem" }}>Resume Not Found</h4>
+    }
+
     return (
         <div>
             <Container style={{ marginTop: '1rem' }}>
@@ -57,7 +69,7 @@ let ResumeView = (props) => {
                         <Col md={6}>{resume.address}</Col>
                     </Row>
                     <Row>
-                        <Col md={6}>{resume.city}, {resume.zipcode}</Col>
+                        <Col md={6}>{resume.city} {resume.zipcode && `,`} {resume.zipcode}</Col>
                     </Row>
                     <hr />
                     <Row style={{ marginTop: '2rem' }}>
@@ -68,8 +80,8 @@ let ResumeView = (props) => {
                     <hr />
                     <Row>
                         <Col md={12}>
-                            {resume.education && resume.education.map(elm => (
-                                <>
+                            {resume.education && resume.education.map((elm, i) => (
+                                <div key={i}>
                                     <Row>
                                         <Col><h5>{elm.name}</h5></Col>
                                     </Row>
@@ -84,7 +96,7 @@ let ResumeView = (props) => {
                                             <h6>End: {elm.end}</h6>
                                         </Col>
                                     </Row>
-                                </>
+                                </div>
                             ))}
                         </Col>
                     </Row>
@@ -94,8 +106,8 @@ let ResumeView = (props) => {
                         </Col>
                     </Row>
                     <hr />
-                    {resume.experience && resume.experience.map(elm => (
-                        <>
+                    {resume.experience && resume.experience.map((elm, i) => (
+                        <div key={i}>
                             <Row>
                                 <Col><h5>{elm.name}</h5></Col>
                             </Row>
@@ -110,7 +122,7 @@ let ResumeView = (props) => {
                                     <h6>End: {elm.end}</h6>
                                 </Col>
                             </Row>
-                        </>
+                        </div>
                     ))}
                     <Row style={{ marginTop: '2rem' }}>
                         <Col>

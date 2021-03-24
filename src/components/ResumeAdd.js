@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { reduxForm, Field, FieldArray } from "redux-form";
 import { connect } from "react-redux"
@@ -8,11 +8,14 @@ import RenderEducation from './ResumeHelpers/RenderEducation'
 import RenderSkills from './ResumeHelpers/RenderSkills'
 import { loadState, addNewResume, getSingleResume, updatecurrentResume } from '../actions/resume'
 import navBarWrapper from './NavBarDecorator'
+import { navigateTo, validResume } from '../helpers'
 
 let ResumeAdd = (props) => {
     const history = useHistory()
-    const { handleSubmit, reset } = props;
+    const { handleSubmit, reset, submitting, loading, initialValues } = props;
     const { id } = useParams()
+    const [resumeValid, setValidResume] = useState(true)
+
     useEffect(() => {
         if (id) {
             props.getSingleResume(id)
@@ -22,11 +25,27 @@ let ResumeAdd = (props) => {
     }, [id, props])
     const onSubmit = (values) => {
         if (id) {
-            props.updatecurrentResume(values).then(() => history.push("/"))
+            props.updatecurrentResume(values).then((updatedResume) => navigateTo(history, `/view/${updatedResume.id}`))
         } else {
-            props.addNewResume(values).then(() => history.push("/"))
+            props.addNewResume(values).then((updatedResume) => {
+                navigateTo(history, `/view/${updatedResume.id}`)
+            })
         }
     }
+    useEffect(() => {
+        if (id) {
+          setValidResume(validResume(initialValues))
+        }
+    }, [initialValues])
+
+    if (loading) {
+        return <p>Loading..</p>
+    }
+
+    if (!resumeValid) {
+        return <h4 style={{ textAlign: "center", marginTop: "1rem" }}>Resume Not Found</h4>
+    }
+
     return (
         <Container>
             <h4 style={{ textAlign: "center" }}>Add Deatils</h4>
@@ -105,7 +124,7 @@ let ResumeAdd = (props) => {
                     <FieldArray name="skills" component={RenderSkills} />
                 </FormGroup>
                 <FormGroup>
-                    <Button color="primary" type="submit">Submit</Button>
+                    <Button color="primary" type="submit" disabled={submitting}>Submit</Button>
                     {" "}
                     <Button color="danger" type="button" onClick={reset}>Reset</Button>
                 </FormGroup>
@@ -124,7 +143,8 @@ ResumeAdd = reduxForm({
 ResumeAdd = connect(
     state => {
         return {
-            initialValues: state.resumes.resume,  // pull initial values from resume reducer
+            initialValues: state.resumes.resume,
+            loading: state.resumes.loading
         }
     },
     { loadState, addNewResume, getSingleResume, updatecurrentResume }

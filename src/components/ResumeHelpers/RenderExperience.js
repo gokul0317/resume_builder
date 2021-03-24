@@ -7,7 +7,7 @@ const RenderExperience = ({ fields, meta: { error } }) => (
     <>
         <Button type="button" size="sm" color="primary" onClick={() => fields.push()}>
             +
-                </Button>
+        </Button>
         <Col>
             {fields.map((experience, index) => (
                 <Row key={index}>

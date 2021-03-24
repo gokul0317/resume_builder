@@ -12,5 +12,11 @@
     { "label": "Angular"},
     { "label": "Angular JS"},
     { "label": "Vue JS"},
-    { "label": "Scss"}
+    { "label": "JAVA"},
+    { "label": "Python"},
+    { "label": "Rust"},
+    { "label": "Ruby"},
+    { "label": "SQL"},
+    { "label": "MS SQL"},
+    { "label": "Mongo db"}
 ]
