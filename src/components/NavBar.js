@@ -11,7 +11,7 @@ import {
 import { Link, useHistory } from 'react-router-dom'
 import { navigateTo } from '../helpers'
 
-export default function NavBar() {
+export default function NavBarComponent() {
     const history = useHistory()
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);

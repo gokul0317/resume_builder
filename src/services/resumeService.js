@@ -1,7 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
+export const LOCAL_STORAGE_KEY = 'resumes'
 const getAllResume = () => {
     try {
-        const resumes = JSON.parse(localStorage.getItem('resumes')) || []
+        const resumes = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || []
         return resumes
     } catch (e) {
         console.log(e)
@@ -23,7 +24,7 @@ const updateResume = (resume) => {
     if (index > -1) {
         resumes[index] = resume
     }
-    localStorage.setItem('resumes', JSON.stringify(resumes))
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(resumes))
     return resume
 }
 
@@ -39,7 +40,7 @@ const getResumeById = (id) => {
 const deleteSingleResumeById = (id) => {
     const resumes = getAllResume() ? getAllResume() : []
     const newResumes = resumes.filter((elm) => elm.id !== id)
-    localStorage.setItem('resumes', JSON.stringify(newResumes))
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newResumes))
     return true
 }
 

@@ -7,8 +7,9 @@ import { CardFooter, Card, CardColumns, CardTitle, CardLink, Row, Container, But
 import { getAllResumes, deleteSingleResume } from '../actions/resume'
 import { navigateTo } from '../helpers'
 import ConfirmModal from './ResumeHelpers/ConfirmModal'
+import navBarWrapper from './NavBarDecorator'
 
-const ResumeContainer = ({ getAllResumes, resumesState, deleteSingleResume }) => {
+let ResumeContainer = ({ getAllResumes, resumesState, deleteSingleResume }) => {
     const [modal, setModal] = useState(false);
     const [deleteItem, setDeleteItem] = useState(null);
     const toggle = () => setModal(!modal);
@@ -62,5 +63,16 @@ const mapStateToProps = state => ({
     resumesState: state.resumes
 })
 
+ResumeContainer = connect(mapStateToProps, { getAllResumes, deleteSingleResume })(ResumeContainer)
 
-export default connect(mapStateToProps, { getAllResumes, deleteSingleResume })(ResumeContainer)
+
+
+@navBarWrapper()
+class ResumeContainerWrapper extends React.Component {
+    render() {
+        return (
+            <ResumeContainer />
+        )
+    }
+}
+export default ResumeContainerWrapper

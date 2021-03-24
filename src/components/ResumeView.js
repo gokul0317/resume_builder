@@ -4,6 +4,7 @@ import { connect } from "react-redux"
 import { Container, Button, Col, Row } from 'reactstrap'
 import { getSingleResume, loadingResume } from '../actions/resume'
 import ReactToPdf from 'react-to-pdf'
+import navBarWrapper from './NavBarDecorator'
 
 
 let ResumeView = (props) => {
@@ -140,4 +141,13 @@ ResumeView = connect(
 )(ResumeView)
 
 
-export default ResumeView
+@navBarWrapper()
+class ResumeViewWrapper extends React.Component {
+    render() {
+        return (
+            <ResumeView />
+        )
+    }
+}
+
+export default ResumeViewWrapper

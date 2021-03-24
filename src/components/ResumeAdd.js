@@ -7,6 +7,7 @@ import RenderExperience from './ResumeHelpers/RenderExperience'
 import RenderEducation from './ResumeHelpers/RenderEducation'
 import RenderSkills from './ResumeHelpers/RenderSkills'
 import { loadState, addNewResume, getSingleResume, updatecurrentResume } from '../actions/resume'
+import navBarWrapper from './NavBarDecorator'
 
 let ResumeAdd = (props) => {
     const history = useHistory()
@@ -129,4 +130,13 @@ ResumeAdd = connect(
     { loadState, addNewResume, getSingleResume, updatecurrentResume }
 )(ResumeAdd)
 
-export default ResumeAdd
+@navBarWrapper()
+class ResumeAddWrapper extends React.Component {
+    render() {
+        return (
+            <ResumeAdd />
+        )
+    }
+}
+
+export default ResumeAddWrapper
