@@ -1,0 +1,16 @@
+[
+    { "label": "PHP"},
+    { "label": "Js"},
+    { "label": "HTML"},
+    { "label": "Css"},
+    { "label": "Jquery"},
+    { "label": "Photshop"},
+    { "label": "React"},
+    { "label": "Node"},
+    { "label": "GraphQl"},
+    { "label": "Rust"},
+    { "label": "Angular"},
+    { "label": "Angular JS"},
+    { "label": "Vue JS"},
+    { "label": "Scss"}
+]

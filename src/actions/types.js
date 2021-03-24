@@ -1,0 +1,9 @@
+
+export const GET_RESUMES = 'GET_RESUMES';
+export const GET_RESUMES_ERROR = 'GET_RESUMES_ERROR';
+export const ADD_RESUMES = 'ADD_RESUMES';
+export const EDIT_RESUME = 'EDIT_RESUME';
+export const LOAD_STATE = 'LOAD_STATE';
+export const GET_SINGLE_RESUME = "GET_SINGLE_RESUME"
+export const DELETE_SINGLE_RESUME = "DELETE_SINGLE_RESUME"
+export const SET_LOADING = "SET_LOADING"
