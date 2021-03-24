@@ -38,7 +38,7 @@ const ResumeContainer = ({ getAllResumes, resumesState, deleteSingleResume }) =>
                         resumes.map((resume, i) => (
                             <Card key={i}>
                                 <CardHeader>
-                                    <CardTitle style={{ cursor: 'pointer' }}><CardLink onClick={() => alert('11')}>{resume.template ?? `Resume Template ${i + 1}`}</CardLink></CardTitle>
+                                    <CardTitle style={{ cursor: 'pointer' }}><CardLink onClick={() => navigateTo(history, `/view/${resume.id}`)}>{resume.template ?? `Resume Template ${i + 1}`}</CardLink></CardTitle>
                                 </CardHeader>
                                 <CardFooter>
                                     <Button size="sm" onClick={() => navigateTo(history, `/edit/${resume.id}`)} color="outline-primary">Edit</Button>{' '}
